@@ -43,4 +43,20 @@ public class Report {
     public String getStatus() {
         return status;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
