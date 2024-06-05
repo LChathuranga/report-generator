@@ -74,7 +74,7 @@ public class ReportServiceImpl implements ReportService {
            try{
                // Todo
                // Generate report by using reportId, startDate and endDate
-               int delay = (int) (Math.random() * 10000 + 8000);
+               int delay = (int) (Math.random() * 4500 + 500);
                Thread.sleep(delay);
                report.setStatus("Finished");
                reportRepository.save(report);
