@@ -6,4 +6,6 @@ import java.time.LocalDate;
 
 public interface ReportService {
     public Report generateReport(LocalDate startDate, LocalDate endDate);
+
+    public String getReportStatus(String reportId);
 }

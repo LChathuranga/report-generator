@@ -1,11 +1,13 @@
 package com.kingit.report_generator.service;
 
 import com.kingit.report_generator.entity.Report;
+import com.kingit.report_generator.exception.ReportNotFoundException;
 import com.kingit.report_generator.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,6 +21,17 @@ public class ReportServiceImpl implements ReportService {
         Report report = new Report(reportId, "KIS-" + reportId, startDate, endDate, "Generated report for start date: " + startDate + " end date: " + endDate, "In progress");
         startReportGeneration(report);
         return reportRepository.save(report);
+    }
+
+    @Override
+    public String getReportStatus(String reportId) throws ReportNotFoundException {
+        Optional<Report> optionalReport = reportRepository.findById(reportId);
+        if(optionalReport.isPresent()){
+            Report report = optionalReport.get();
+            return report.getStatus();
+        } else {
+            throw new ReportNotFoundException("Report with ID: " + reportId + " not found");
+        }
     }
 
     private void startReportGeneration(Report report){
@@ -41,7 +54,6 @@ public class ReportServiceImpl implements ReportService {
 
         reportGenerationThread.start();
     }
-
     private String generateReportId(){
         return UUID.randomUUID().toString();
     }
